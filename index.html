@@ -186,6 +186,23 @@
       Copyright © 2025 Web Design Mastery. All rights reserved.
     </footer>
 
+    <div id="chatbot" class="chatbot">
+      <div class="chatbot-header">
+        <span class="chatbot-avatar">
+          <i class="ri-robot-2-fill"></i>
+        </span>
+        <span class="chatbot-title">AI Assistant</span>
+        <button id="chatbot-close" class="chatbot-close"><i class="ri-close-line"></i></button>
+      </div>
+      <div id="chatlog" class="chatlog"></div>
+      <div class="chatbot-input-area">
+        <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" />
+        <button id="sendBtn" class="btn"><i class="ri-send-plane-2-fill"></i></button>
+        <button id="voiceBtn" class="btn"><i class="ri-mic-fill"></i></button>
+      </div>
+      <button id="chatbot-toggle" class="chatbot-toggle"><i class="ri-robot-2-fill"></i></button>
+    </div>
+
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="main.js"></script>
   </body>
