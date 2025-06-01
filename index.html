@@ -8,12 +8,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <title>Web Design Mastery | Darshika</title>
   </head>
   <body>
+  <div id="visitor-message" class="visitor-message"></div>
     <nav>
       <div class="nav__bar">
-        <a href="#"><span class="logo nav__logo">D</span> Darshika</a>
+        <a href="#"><span class="logo nav__logo">D</span> </a>
         <div class="nav__menu__btn" id="menu-btn">
           <i class="ri-menu-3-line"></i>
         </div>
@@ -26,14 +28,30 @@
         <li><a href="#contact" class="btn">Contact</a></li>
       </ul>
       <a href="#contact" class="btn btn__large">Contact</a>
+      <div class="nav__theme-toggle" id="theme-toggle" title="Toggle dark/light mode">
+        <i class="ri-moon-line"></i>
+      </div>
+      <div class="theme-customizer">
+        <label>
+          <span>Primary</span>
+          <input type="color" id="primary-color-picker" value="#e9615e" />
+        </label>
+        <label>
+          <span>Secondary</span>
+          <input type="color" id="secondary-color-picker" value="#ec9956" />
+        </label>
+      </div>
     </nav>
     <header class="section__container header__container" id="home">
-      <div class="header__image">
+      <div class="header__image rellax" data-rellax-speed="3">
         <img src="assets/header.jpg" alt="header" />
       </div>
       <div class="header__content">
         <div>
-          <h2>Darshika<br />User Interface<br />Designer</h2>
+          <h2>
+            <span class="animated-hi">hi Darshika</span><br />
+            
+          </h2>
         </div>
         <p class="section__description">
           I'm a dedicated web developer with a creative flair and a penchant for
@@ -168,6 +186,7 @@
           <p>Feedbacks</p>
         </div>
       </div>
+      <div class="portfolio__bg-text rellax" data-rellax-speed="-2"></div>
     </section>
 
     <section class="section__container contact__container" id="contact">
@@ -178,32 +197,70 @@
         on my personal portfolio website.
       </p>
       <div class="contact__socials">
-        <a href="http://www.linkedin.com/in/darshika-dubey-48b65b335" target="_blank"><i class="ri-linkedin-fill"></i></a>
-        <a href="https://github.com/darshikadubey67" target="_blank"><i class="ri-github-fill"></i></a>
+        <a href="http://www.linkedin.com/in/darshika-dubey-48b65b335" target="_blank" rel="noopener" title="LinkedIn Profile"><i class="ri-linkedin-fill"></i></a>
+        <a href="https://github.com/darshikadubey67" target="_blank" rel="noopener" title="GitHub Profile"><i class="ri-github-fill"></i></a>
+        <a href="https://wa.me/917985224518" target="_blank" rel="noopener" title="WhatsApp">
+          <i class="ri-whatsapp-fill"></i>
+        </a>
       </div>
     </section>
     <footer class="footer">
       Copyright © 2025 Web Design Mastery. All rights reserved.
     </footer>
 
-    <div id="chatbot" class="chatbot">
-      <div class="chatbot-header">
-        <span class="chatbot-avatar">
-          <i class="ri-robot-2-fill"></i>
-        </span>
-        <span class="chatbot-title">AI Assistant</span>
-        <button id="chatbot-close" class="chatbot-close"><i class="ri-close-line"></i></button>
-      </div>
-      <div id="chatlog" class="chatlog"></div>
-      <div class="chatbot-input-area">
-        <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" />
-        <button id="sendBtn" class="btn"><i class="ri-send-plane-2-fill"></i></button>
-        <button id="voiceBtn" class="btn"><i class="ri-mic-fill"></i></button>
-      </div>
-      <button id="chatbot-toggle" class="chatbot-toggle"><i class="ri-robot-2-fill"></i></button>
-    </div>
-
-    <script src="https://unpkg.com/scrollreveal"></script>
+      <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
     <script src="main.js"></script>
+    <script>
+  // Theme toggle logic
+  const toggle = document.getElementById('theme-toggle');
+  const icon = toggle.querySelector('i');
+  toggle.onclick = function() {
+    document.body.classList.toggle('light-theme');
+    icon.classList.toggle('ri-moon-line');
+    icon.classList.toggle('ri-sun-line');
+  };
+
+  // Dynamic theme customization
+  const root = document.documentElement;
+  const primaryPicker = document.getElementById('primary-color-picker');
+  const secondaryPicker = document.getElementById('secondary-color-picker');
+
+  primaryPicker.addEventListener('input', (e) => {
+    root.style.setProperty('--primary-color', e.target.value);
+    root.style.setProperty('--gradient-2', `linear-gradient(${e.target.value}, var(--secondary-color))`);
+  });
+
+  secondaryPicker.addEventListener('input', (e) => {
+    root.style.setProperty('--secondary-color', e.target.value);
+    root.style.setProperty('--gradient-2', `linear-gradient(var(--primary-color), ${e.target.value})`);
+  });
+
+  // Initialize Rellax for parallax effect
+  var rellax = new Rellax('.rellax');
+
+  // Personalized visitor message
+  function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
+  }
+  document.getElementById('visitor-message').textContent =
+    `${getGreeting()}, welcome to Darshika's Portfolio!`;
+
+  // Portfolio card scroll animation
+  function revealPortfolioCards() {
+    const cards = document.querySelectorAll('.portfolio__card');
+    const trigger = window.innerHeight * 0.92;
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < trigger) card.classList.add('visible');
+      else card.classList.remove('visible');
+    });
+  }
+  window.addEventListener('scroll', revealPortfolioCards);
+  window.addEventListener('load', revealPortfolioCards);
+</script>
   </body>
 </html>

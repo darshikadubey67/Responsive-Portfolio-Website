@@ -61,6 +61,12 @@ ScrollReveal().reveal(".service__card", {
 
 // portfolio container
 ScrollReveal().reveal(".portfolio__card", {
-  duration: 1000,
-  interval: 500,
+  origin: "bottom",
+  distance: "40px",
+  duration: 900,
+  interval: 120,
+  opacity: 0,
+  easing: "ease-in-out",
+  reset: false,
 });
+
