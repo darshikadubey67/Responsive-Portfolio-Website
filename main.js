@@ -70,3 +70,52 @@ ScrollReveal().reveal(".portfolio__card", {
   reset: false,
 });
 
+const typedText = ["User Interface Designer", "Web Developer", "Creative Coder"];
+let typedIdx = 0,
+  charIdx = 0,
+  typing = true;
+function typeEffect() {
+  const el = document.getElementById("typed");
+  if (typing) {
+    if (charIdx < typedText[typedIdx].length) {
+      el.textContent += typedText[typedIdx][charIdx++];
+      setTimeout(typeEffect, 80);
+    } else {
+      typing = false;
+      setTimeout(typeEffect, 1200);
+    }
+  } else {
+    if (charIdx > 0) {
+      el.textContent = el.textContent.slice(0, --charIdx);
+      setTimeout(typeEffect, 40);
+    } else {
+      typing = true;
+      typedIdx = (typedIdx + 1) % typedText.length;
+      setTimeout(typeEffect, 400);
+    }
+  }
+}
+typeEffect();
+
+// Add to your existing script
+document.querySelectorAll('.portfolio__card img').forEach((img, idx) => {
+  img.addEventListener('click', () => {
+    document.getElementById('modal-img').src = img.src;
+    document.getElementById('modal-title').textContent = `Project ${idx + 1}`;
+    document.getElementById('modal-desc').textContent = "Project description goes here.";
+    document.getElementById('project-modal').style.display = 'flex';
+  });
+});
+document.querySelector('.project-modal-close').onclick = () => {
+  document.getElementById('project-modal').style.display = 'none';
+};
+window.onclick = (e) => {
+  if (e.target.id === 'project-modal') document.getElementById('project-modal').style.display = 'none';
+};
+
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+});
+backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+

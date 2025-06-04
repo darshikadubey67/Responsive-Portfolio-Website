@@ -2,15 +2,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 :root {
+  --background: #f54168; /* Soft dark blue */
+  --text: #ffffff;
   --primary-color: #e9615e;
   --secondary-color: #ec9956;
   --extra-light: #f3f4f6;
   --white: #ffffff;
-  --background: #181e41;
-  --text: #ffffff;
-  --gradient-1: linear-gradient(to bottom right, #62393c, #181e41);
+  --gradient-1: linear-gradient(to bottom right, #2b3467, #1e2746);
   --gradient-2: linear-gradient(var(--primary-color), var(--secondary-color));
   --max-width: 1200px;
+}
+
+/* Light theme */
+body.light-theme {
+  --background: #310dd1; /* Soft light blue */
+  --text: #232946;
+  --primary-color: #3b82f6;
+  --secondary-color: #f59e42;
+  --extra-light: #e5eaf1;
+  --white: #ffffff;
+  --gradient-1: linear-gradient(120deg, #e0e7ff 0%, #f4f8fb 100%);
+  --gradient-2: linear-gradient(90deg, #3b82f6 0%, #f59e42 100%);
 }
 
 * {
@@ -30,13 +42,21 @@
   font-size: 2rem;
   font-weight: 800;
   text-align: center;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.3em;
+}
+
+.section__header::after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 60%;
+  margin: 0.5em auto 0;
+  border-radius: 2px;
   background: linear-gradient(90deg, #ff6a00, #ee0979, #43cea2, #185a9d, #ff6a00);
   background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   animation: gradient-move 4s linear infinite;
-  letter-spacing: 2px;
 }
 
 .section__description {
@@ -86,9 +106,8 @@ body {
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  color: var(--white);
   background: var(--background);
+  color: var(--text);
 }
 
 nav {
@@ -281,16 +300,9 @@ nav {
 }
 
 .portfolio__card {
-  overflow: hidden;
-  border-radius: 1rem;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
   opacity: 0;
   transform: translateY(40px) scale(0.96);
-  transition: 
-    opacity 0.7s cubic-bezier(.4,1.6,.6,1),
-    transform 0.7s cubic-bezier(.4,1.6,.6,1);
+  transition: opacity 0.7s cubic-bezier(.4,1.6,.6,1), transform 0.7s cubic-bezier(.4,1.6,.6,1);
 }
 
 .portfolio__card.visible {
@@ -299,9 +311,7 @@ nav {
 }
 
 .portfolio__card:hover {
-  transform: translateY(-12px) scale(1.04) rotate(-2deg);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-  z-index: 2;
+  box-shadow: 0 16px 48px rgba(31,38,135,0.22), 0 0 0 6px var(--primary-color, #e9615e);
 }
 
 .portfolio__card img {
@@ -365,6 +375,15 @@ nav {
   transition: 0.3s;
 }
 
+.contact__socials a i {
+  transition: transform 0.3s, color 0.3s;
+}
+
+.contact__socials a:hover i {
+  transform: scale(1.2) rotate(-10deg);
+  color: var(--primary-color);
+}
+
 .contact__socials a:hover {
   background: var(--gradient-2);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -386,11 +405,6 @@ nav {
   100% { background-position: 100% 50%; }
 }
 
-@keyframes float-bg-text {
-  0% { transform: translate(-50%, -50%) rotate(-10deg) scale(1);}
-  100% { transform: translate(-50%, -55%) rotate(-10deg) scale(1.04);}
-}
-
 .portfolio__bg-text {
   position: absolute;
   top: 40%;
@@ -404,11 +418,13 @@ nav {
   -webkit-user-select: none;
   user-select: none;
   z-index: 0;
-  /* No animation here, let rellax handle movement */
   animation: float-bg-text 6s ease-in-out infinite alternate, 
              bg-text-pulse 3s ease-in-out infinite alternate;
 }
-
+@keyframes float-bg-text {
+  0% { transform: translate(-50%, -50%) rotate(-10deg) scale(1);}
+  100% { transform: translate(-50%, -55%) rotate(-10deg) scale(1.04);}
+}
 @keyframes bg-text-pulse {
   0% { opacity: 0.07; }
   100% { opacity: 0.16; }
@@ -574,13 +590,13 @@ nav {
 }
 
 body.light-theme {
-  --background: #f7f8fa;
+  --background: #f4f8fb; /* Soft light blue */
   --text: #232946;
   --primary-color: #3b82f6;
   --secondary-color: #f59e42;
   --extra-light: #e5eaf1;
   --white: #ffffff;
-  --gradient-1: linear-gradient(120deg, #e0e7ff 0%, #f7f8fa 100%);
+  --gradient-1: linear-gradient(120deg, #e0e7ff 0%, #f4f8fb 100%);
   --gradient-2: linear-gradient(90deg, #3b82f6 0%, #f59e42 100%);
 }
 
@@ -639,6 +655,53 @@ body.light-theme .visitor-message {
 @keyframes banner-bounce {
   0% { transform: translateY(0);}
   100% { transform: translateY(-10px);}
+}
+
+.project-modal {
+  display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.6); align-items: center; justify-content: center;
+}
+.project-modal-content {
+  background: var(--white); color: var(--text); padding: 2rem; border-radius: 1rem; max-width: 400px; width: 90%; text-align: center; position: relative;
+}
+.project-modal-close {
+  position: absolute; top: 1rem; right: 1rem; font-size: 2rem; cursor: pointer;
+}
+.project-modal img { max-width: 100%; border-radius: 0.5rem; margin-bottom: 1rem; }
+body.light-theme .project-modal-content { background: #fff; color: #232946; }
+
+.back-to-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+  background: var(--primary-color); color: #fff; border: none; border-radius: 50%;
+  width: 2.7rem; height: 2.7rem; font-size: 1.5rem; display: none; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; transition: background 0.3s;
+}
+.back-to-top:hover { background: var(--secondary-color);}
+
+.decorative-blob {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  border-radius: 50%;
+  filter: blur(12px);
+  animation: blob-float 12s ease-in-out infinite alternate;
+}
+.blob1 {
+  width: 320px; height: 320px;
+  background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+  top: -80px; left: -80px;
+  animation-delay: 0s;
+}
+.blob2 {
+  width: 220px; height: 220px;
+  background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+  bottom: -60px; right: -60px;
+  animation-delay: 3s;
+}
+@keyframes blob-float {
+  0% { transform: scale(1) translateY(0);}
+  100% { transform: scale(1.08) translateY(30px);}
 }
 
 
